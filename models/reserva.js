@@ -7,8 +7,11 @@ module.exports = (sequelize, DataTypes) => {
     codigo_reserva: DataTypes.STRING
   }, {});
   reserva.associate = function(models) {
-    // associations can be defined here
-    // reserva.belongsTo(models.cliente);
+    reserva.belongsTo(models.cliente,{
+      foreignKey: 'cliente_id',
+      as:'cliente_id',
+      onDelete: 'CASCADE',
+    });
   };
   return reserva;
 };

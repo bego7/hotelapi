@@ -8,8 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     telefono: DataTypes.STRING
   }, {});
   cliente.associate = function(models) {
-    // client has many reservas
-    // cliente.hasMany(models.reserva);
+    cliente.hasMany(models.reserva,{
+      foreignKey: 'id_cliente',
+      as:'reserva',
+    });
   };
   return cliente;
 };
