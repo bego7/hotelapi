@@ -12,6 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       as:'cliente_id',
       onDelete: 'CASCADE',
     });
+
+    reserva.belongsTo(models.pago,{
+      foreignKey: 'pago_id',
+      as:'pago_id',
+      onDelete: 'CASCADE',
+    });
   };
   return reserva;
 };

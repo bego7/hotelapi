@@ -22,6 +22,14 @@ module.exports = {
           as: 'cliente_id'
         }
       },
+      pago_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'pagos',
+          key: 'id',
+          as: 'pago_id'
+        }
+      },
       cantidad_personas: {
         type: Sequelize.INTEGER
       },
