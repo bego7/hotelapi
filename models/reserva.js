@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       as:'pago_id',
       onDelete: 'CASCADE',
     });
+
+    reserva.belongsToMany(models.habitacion, {
+      as: 'reserva_id',
+      through: models.reserva_habitacion,
+    });
   };
   return reserva;
 };
