@@ -19,7 +19,7 @@ module.exports = {
      updatedAt: new Date()
    }, {
      numero_habitacion: 7,
-     tipo_id: 3,
+     tipo_id: 2,
      createdAt: new Date(),
      updatedAt: new Date()
    }], {});
