@@ -13,4 +13,11 @@ module.exports = {
       .then(cliente => res.status(201).send(cliente))
       .catch(error => res.status(400).send(error));
   },
+
+  list(req, res) {
+    return cliente
+      .findAll()
+      .then(cliente => res.status(200).send(cliente))
+      .catch(error => res.status(400).send(error));
+  },
 };

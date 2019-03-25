@@ -11,4 +11,11 @@ module.exports = {
       .then(pago => res.status(201).send(pago))
       .catch(error => res.status(400).send(error));
   },
+
+  list(req, res) {
+    return pago
+      .findAll()
+      .then(pago => res.status(200).send(pago))
+      .catch(error => res.status(400).send(error));
+  },
 };
