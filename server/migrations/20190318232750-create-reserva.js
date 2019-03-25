@@ -19,7 +19,7 @@ module.exports = {
         references: {
           model: 'clientes',
           key: 'id',
-          as: 'cliente_id'
+          as: 'idCliente'
         }
       },
       pago_id: {
@@ -27,7 +27,7 @@ module.exports = {
         references: {
           model: 'pagos',
           key: 'id',
-          as: 'pago_id'
+          as: 'idPago'
         }
       },
       cantidad_personas: {

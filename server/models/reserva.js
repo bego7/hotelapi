@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
   reserva.associate = function(models) {
     reserva.belongsTo(models.cliente,{
       foreignKey: 'cliente_id',
-      as:'cliente_id',
+      as:'idCliente',
       onDelete: 'CASCADE',
     });
 
     reserva.belongsTo(models.pago,{
       foreignKey: 'pago_id',
-      as:'pago_id',
+      as:'idPago',
       onDelete: 'CASCADE',
     });
 

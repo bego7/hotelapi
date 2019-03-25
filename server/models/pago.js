@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   pago.associate = function(models) {
     // associations can be defined here
-    pago.hasOne(models.reseva,{
+    pago.hasOne(models.reserva,{
       foreignKey: 'pago_id',
       as:'pago_id',
       onDelete: 'CASCADE',

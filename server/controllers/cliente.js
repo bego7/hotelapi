@@ -1,8 +1,8 @@
-const Cliente = require('../models');
+const cliente = require('../models').cliente;
 
 module.exports = {
   create(req, res) {
-    return Cliente
+    return cliente
       .create({
         nombre: req.body.nombre,
         apellido_paterno:req.body.apellido_paterno,

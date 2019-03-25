@@ -16,7 +16,7 @@ module.exports = {
         references: {
           model: 'tipos',
           key: 'id',
-          as: 'tipo_id'
+          as: 'idTipo'
         }
       },
       createdAt: {

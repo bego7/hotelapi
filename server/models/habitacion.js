@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   habitacion.associate = function(models) {
     habitacion.belongsTo(models.tipo,{
         foreignKey: 'tipo_id',
-        as:'tipo_id',
+        as:'idTipo',
         onDelete: 'CASCADE',
       });
   };

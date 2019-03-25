@@ -9,19 +9,19 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     reserva_habitacion.belongsTo(models.reserva, {
       foreignKey: 'reserva_id',
-      as: 'reserva_id',
+      as: 'idReserva',
       onDelete: 'CASCADE',
     });
    reserva_habitacion.belongsTo(models.habitacion, {
       foreignKey: 'habitacion_id',
-      as: 'habitacion_id',
+      as: 'idHabitacion',
       onDelete: 'CASCADE',
     });
   
-  reserva.belongsToMany(models.reserva, {
-      as: 'habitacion_id',
-      through: models.reserva_habitacion,
-    });
+  // reserva.belongsToMany(models.reserva, {
+  //     as: 'habitacion_id',
+  //     through: models.reserva_habitacion,
+  //   });
   };
   return reserva_habitacion;
 };
