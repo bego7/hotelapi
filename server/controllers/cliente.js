@@ -21,31 +21,51 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
-  // update(req, res) {
-  //   return User
-  //     .findById(req.params.id, {
-  //       attributes: ['id', 'nombre','apellido_' 'createdAt', 'updatedAt'],
-  //     })
-  //     .then((user) => {
-  //       if (!user) {
-  //         return res.status(400).send({
 
-  //           status: 400,
-  //           message: 'No user with that ID was found.',
-  //         });
-  //       }
+  retrieve(req, res) {
+    return cliente
+      .findById(req.params.id, {
+        
+      })
+      .then((cliente) => {
+        if (!cliente) {
+          return res.status(404).send({
+            status: 400,
+            message: 'No client with that ID was found.',
+          });
+        }
+        return res.status(200).send(cliente);
+      })
+      .catch(error => res.status(400).send(error));
+  },
 
-  //       return user
-  //         .update({
+  update(req, res) {
+    return cliente
+      .findById(req.params.id, {
+        attributes: ['id', 'nombre','apellido_paterno','apellido_materno','correo','telefono', 'createdAt', 'updatedAt'],
+      })
+      .then((clienter) => {
+        if (!cliente) {
+          return res.status(400).send({
 
-  //           // Don't let it update the email that corresponds to the user id and the username
-  //           firstName: req.body.firstName || user.firstName,
-  //           lastName: req.body.lastName || user.lastName,
-  //           password: req.body.password || user.password,
-  //         })
-  //         .then(updatedUser => res.status(200).send(updatedUser))
-  //         .catch(error => res.status(400).send(error));
-  //     })
-  //     .catch(error => res.status(400).send(error));
-  // },
+            status: 400,
+            message: 'No client with that ID was found.',
+          });
+        }
+
+        return cliente
+          .update({
+
+            // Don't let it update the email that corresponds to the user id and the username
+            nombre: req.body.nombre || cliente.nombre,
+            apellido_paterno: req.body.apellido_paterno ||cliente.apellido_paterno,
+            apellido_materno: req.body.apellido_materno ||cliente.apellido_materno,
+            correo: req.body.correo || cliente.correo,
+            telefono: req.body.telefono || cliente.telefono,
+          })
+          .then(updatedUser => res.status(200).send(updatedUser))
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
 };

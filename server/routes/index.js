@@ -23,6 +23,8 @@ module.exports = (app) => {
   // Routes for clientes
   app.post('/api/clientes', clienteController.create);
   app.get('/api/clientes', clienteController.list);
+  app.get('/api/clientes/:id', clienteController.retrieve);
+  app.put('/api/clientes/:id', clienteController.update);
 
    // Routes for pagos
   app.post('/api/pagos', pagoController.create);
