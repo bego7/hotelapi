@@ -24,7 +24,7 @@ module.exports = (app) => {
   app.post('/api/clientes', clienteController.create);
   app.get('/api/clientes', clienteController.list);
   app.get('/api/clientes/:id', clienteController.retrieve);
-  app.put('/api/clientes/:id', clienteController.update);
+  app.put('/api/clientes/update/:id', clienteController.update);
 
    // Routes for pagos
   app.post('/api/pagos', pagoController.create);

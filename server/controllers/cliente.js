@@ -23,13 +23,20 @@ module.exports = {
 
 
   retrieve(req, res) {
+    // check that question id is not null, undefined. Check that the id is not zero.
+    if (!req.body.id && req.body.id === parseInt(req.body.id, 10)) {
+      return res.status(400).send({
+        message: 'The question ID must be an integer bigger than 0',
+      });
+    }
+
     return cliente
-      .findById(req.params.id, {
-        
+      .findByPk(req.params.id, {
+        attributes: ['id', 'nombre','apellido_paterno','apellido_materno','correo','telefono', 'createdAt', 'updatedAt'],
       })
       .then((cliente) => {
         if (!cliente) {
-          return res.status(404).send({
+          return res.status(400).send({
             status: 400,
             message: 'No client with that ID was found.',
           });
@@ -41,10 +48,10 @@ module.exports = {
 
   update(req, res) {
     return cliente
-      .findById(req.params.id, {
+      .findByPk(req.params.id, {
         attributes: ['id', 'nombre','apellido_paterno','apellido_materno','correo','telefono', 'createdAt', 'updatedAt'],
       })
-      .then((clienter) => {
+      .then((cliente) => {
         if (!cliente) {
           return res.status(400).send({
 
@@ -55,15 +62,13 @@ module.exports = {
 
         return cliente
           .update({
-
-            // Don't let it update the email that corresponds to the user id and the username
             nombre: req.body.nombre || cliente.nombre,
             apellido_paterno: req.body.apellido_paterno ||cliente.apellido_paterno,
             apellido_materno: req.body.apellido_materno ||cliente.apellido_materno,
             correo: req.body.correo || cliente.correo,
             telefono: req.body.telefono || cliente.telefono,
           })
-          .then(updatedUser => res.status(200).send(updatedUser))
+          .then(cliente => res.status(200).send(cliente))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
