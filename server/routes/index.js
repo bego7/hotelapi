@@ -1,15 +1,3 @@
-// var express = require('express');
-// var router = express.Router();
-
-// /* GET home page. */
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: 'Express' });
-// });
-
-// module.exports = router;
-
-// stuff that was created for me
-
 const clienteController = require('../controllers').cliente;
 const pagoController = require('../controllers').pago;
 const tipoController = require('../controllers').tipo;
@@ -33,6 +21,9 @@ module.exports = (app) => {
   // Routes for tipos
   app.post('/api/tipos', tipoController.create);
   app.get('/api/tipos', tipoController.list);
+  app.get('/api/tipos/:id', tipoController.retrieve);
+  app.put('/api/tipos/update/:id', tipoController.update);
+  app.delete('/api/tipos/delete/:id', tipoController.delete);
 
   // Routes for habitaciones
   app.post('/api/habitaciones', habitacionController.create);

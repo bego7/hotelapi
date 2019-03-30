@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     tipo.hasMany(models.habitacion,{
       foreignKey: 'tipo_id',
       as:'habitacion',
+      onDelete: 'CASCADE',
+      hooks: true
     });
   };
   return tipo;
