@@ -3,10 +3,12 @@ const pago = require('./pago');
 const tipo = require('./tipo');
 const habitacion = require('./habitacion');
 const reserva = require('./reserva');
+const administrador = require('./administrador');
 module.exports = {
   cliente,
   pago,
   tipo,
   habitacion,
-  reserva
+  reserva,
+  administrador
 };
