@@ -22,7 +22,7 @@ module.exports = {
   }, {
     total:5500,
     tipo:"Airbnb",
-    url_imagen:"https://www.malware-traffic-analysis.net/2015/01/20/2015-01-20-phishing-email-screenshot.jpg",
+    url_imagen:"https://boletiahelp.zendesk.com/hc/article_attachments/360007916231/mceclip5.png",
     createdAt: new Date(),
     updatedAt: new Date()
   }],{});

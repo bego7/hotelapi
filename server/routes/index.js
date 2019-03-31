@@ -30,6 +30,9 @@ module.exports = (app) => {
   // Routes for habitaciones
   app.post('/api/habitaciones', habitacionController.create);
   app.get('/api/habitaciones', habitacionController.list);
+  app.get('/api/habitaciones/:id', habitacionController.retrieve);
+  app.put('/api/habitaciones/update/:id', habitacionController.update);
+  app.delete('/api/habitaciones/delete/:id', habitacionController.delete);
 
 // Routes for reservas
   app.post('/api/reservas', reservaController.create);
