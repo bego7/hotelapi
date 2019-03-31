@@ -18,6 +18,7 @@ module.exports = (app) => {
    // Routes for pagos
   app.post('/api/pagos', pagoController.create);
   app.get('/api/pagos', pagoController.list);
+  app.get('/api/pagos/:id', pagoController.retrieve);
 
   // Routes for tipos
   app.post('/api/tipos', tipoController.create);
