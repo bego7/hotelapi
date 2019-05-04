@@ -36,7 +36,7 @@ module.exports = {
     fecha_ingreso:"2019-06-18",
     fecha_salida:"2019-06-21",
     cantidad_personas:8,
-    codigo_reserva:"GZ567899",
+    codigo_reserva:"",
     cliente_id:2,
     createdAt: new Date(),
     updatedAt: new Date()

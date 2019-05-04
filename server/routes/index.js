@@ -9,6 +9,9 @@ module.exports = (app) => {
     message: 'Welcome to the Hotel boutique Ex-hacienda de San Antonio Api!',
   }));
 
+  // authentication routes
+  // app.post('/api/login', authenticationController.login);
+
   // Routes for clientes
   app.post('/api/clientes', clienteController.create);
   app.get('/api/clientes', clienteController.list);

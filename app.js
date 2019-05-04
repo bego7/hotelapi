@@ -50,12 +50,24 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 var cors = require('cors');
+// const jwt =require('express-jwt');
+// var jwcheck = jwt();
 const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 require('./server/routes')(app);
+// const authConfig= require('./server/config/auth.json');
+
+// var jwcheck = jwt({
+//   secret:authConfig.secret,
+//   audience:authConfig.audience,
+//   issuer:authConfig.issuer,
+//   algorithms:['HS256']
+// });
+
+// app.use(jwcheck.unless({path:['/login']}));
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }));

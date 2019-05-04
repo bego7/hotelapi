@@ -1,15 +1,22 @@
+// const bcrypt = require('..bcrypt-nodejs');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 const administrador = require('../models').administrador;
 
 module.exports = {
   create(req, res) {
+    bcrypt.hash(req.body.contra, saltRounds, function (err,  hash) {
+    // const hashed = hash;
     return administrador
       .create({
         nombre_usuario:req.body.nombre_usuario,
-        contra:req.body.contra
+        contra:hash
       })
       .then(administrador => res.status(201).send(administrador))
       .catch(error => res.status(400).send(error));
+    });
   },
+
   list(req, res) {
     return administrador
       .findAll()
