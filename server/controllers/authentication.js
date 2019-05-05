@@ -28,7 +28,7 @@ module.exports = {
                 if(check){
                     // devolver miembro y token
                     let data = jwt.createToken(administrador);
-                    administrador.contra = '';
+                    // administrador.contra = '';
                     
                     return res.status(200).send({
                         token: data.token,

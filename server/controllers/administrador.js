@@ -49,6 +49,7 @@ module.exports = {
   },
 
   update(req, res) {
+    bcrypt.hash(req.body.contra, saltRounds, function (err,  hash) {
     return administrador
       .findByPk(req.params.id, {
         attributes: ['id', 'nombre_usuario','contra', 'createdAt', 'updatedAt'],
@@ -64,14 +65,15 @@ module.exports = {
 
         return administrador
           .update({
-            nombre_usuario: req.body.nombre_usuario || administrador.nombre_usuario,
-            contra: req.body.contra || administrador.contra
+            nombre_usuario: req.body.nombre_usuario,
+            contra: hash
            
           })
           .then(administrador => res.status(200).send(administrador))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
+    })
   },
 
   delete(req, res) {
