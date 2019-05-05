@@ -4,13 +4,14 @@ const tipoController = require('../controllers').tipo;
 const habitacionController = require('../controllers').habitacion;
 const reservaController = require('../controllers').reserva;
 const administradorController = require('../controllers').administrador;
+const authenticationController = require('../controllers').authentication;
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the Hotel boutique Ex-hacienda de San Antonio Api!',
   }));
 
   // authentication routes
-  // app.post('/api/login', authenticationController.login);
+  app.post('/api/login', authenticationController.login);
 
   // Routes for clientes
   app.post('/api/clientes', clienteController.create);
