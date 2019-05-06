@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const pago = sequelize.define('pago', {
     total: DataTypes.INTEGER,
     tipo: DataTypes.STRING,
-    url_imagen: DataTypes.STRING
+    url_imagen: DataTypes.TEXT
   }, {});
   pago.associate = function(models) {
     // associations can be defined here

@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       url_imagen: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
