@@ -1,4 +1,4 @@
-const { reserva, pago,cliente } = require('../models');
+const { reserva, pago,cliente,habitacion } = require('../models');
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
@@ -23,6 +23,7 @@ module.exports = {
   },
 
   list(req, res) {
+
     return reserva
       .findAll({
         include: [
@@ -36,20 +37,28 @@ module.exports = {
             as: 'idCliente',
             required: false,
           },
+          {
+            model:habitacion
+          }
         ],
       })
       .then(reserva => res.status(200).send(reserva))
       .catch(error => res.status(400).send(error));
   },
 
-    disponibles(req, res) {
-      
+    
+
+  disponibles2(req, res) {
+    // check that params are not null, undefined or empty string
+    if(!req.body.fecha_ingreso || !req.body.fecha_salida){ 
+        return res.status(400).send({message: 'Falta fecha de entrada y fecha de salida'});
+    }
     
     let fecha_ingreso = req.body.fecha_ingreso;
     let fecha_salida = req.body.fecha_salida;
 
     reserva.findAll({
-        include: [
+      include: [
           {
             model: pago,
             as: 'idPago',
@@ -61,23 +70,7 @@ module.exports = {
             required: false,
           },
         ],
-
-        where: {$notBetween:[fecha_ingreso,fecha_salida] }
-      })
-      .then(reserva => res.status(200).send(reserva))
-      .catch(error => res.status(400).send(error));
-  },
-
-  disponibles2(req, res) {
-    // check that params are not null, undefined or empty string
-    if(!req.body.fecha_ingreso || !req.body.fecha_salida){ 
-        return res.status(400).send({message: 'Falta fecha de entrada y fecha de salida'});
-    }
-    
-    let fecha_ingreso = req.body.fecha_ingreso;
-    let fecha_salida = req.body.fecha_salida;
-
-    reserva.findAll({where:{
+      where:{
       fecha_ingreso:{
         [Op.notBetween]:[fecha_ingreso,fecha_salida]}
       }
@@ -100,8 +93,20 @@ module.exports = {
 },
 
 actuales(req,res){
- 
-reserva.findAll({where:{
+reserva.findAll({
+  include: [
+    {
+      model: pago,
+      as: 'idPago',
+      required: false,
+    },
+    {
+      model: cliente,
+      as: 'idCliente',
+      required: false,
+    },
+  ],
+  where:{
   fecha_ingreso:{
     [Op.eq]:today}
   }
@@ -124,33 +129,7 @@ reserva.findAll({where:{
 
 }
 
-// disponibles3(req, res){
-//   reserva.findAll({
-//     include: [{
-//       model: habitacion,
-//       through: {
-//         attributes: ['createdAt', 'startedAt', 'finishedAt'],
-//         where: {completed: true}
-//       }
-//     }]
-//   });
-// }
+
 
 
 };
-
-// reserva.findAll({ where: {$notBetween:[fecha_ingreso,fecha_salida] } }).
-//   then(reserva => {
-//   // projects will be an array of Projects having the id 1, 2 or 3
-//   // this is actually doing an IN query
-// })
-
-// list (req,res)reserva.findAll({
-  
-//       where: {$notBetween:[req.body.fecha_ingreso,req.body.fecha_salida] }
-    
-//   .then(reserva => res.status(200).send(reserva))
-//   .catch(error => res.status(400).send(error))
-// });
-
-
