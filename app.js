@@ -49,6 +49,7 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+// const Sequelize = require('sequelize')
 var cors = require('cors');
 // const jwt =require('express-jwt');
 // var jwcheck = jwt();
@@ -57,6 +58,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+// app.use(Sequelize);
 require('./server/routes')(app);
 // const authConfig= require('./server/config/auth.json');
 

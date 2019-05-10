@@ -22,7 +22,18 @@ module.exports = {
     pago_id:1,
     createdAt: new Date(),
     updatedAt: new Date()
-  }, {
+  }, 
+  {
+    fecha_ingreso:"2019-05-10",
+    fecha_salida:"2019-05-12",
+    cantidad_personas:4,
+    codigo_reserva:"GZ567898",
+    cliente_id:1,
+    pago_id:1,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
     fecha_ingreso:"2019-06-18",
     fecha_salida:"2019-06-21",
     cantidad_personas:2,

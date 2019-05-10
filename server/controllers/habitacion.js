@@ -1,5 +1,5 @@
 // const habitacion = require('../models').habitacion;
-const { habitacion, tipo } = require('../models');
+const { habitacion, tipo,reserva } = require('../models');
 
 module.exports = {
   create(req, res) {
@@ -99,4 +99,7 @@ module.exports = {
         });
     }
 
+      
+
 };
+
