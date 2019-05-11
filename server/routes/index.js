@@ -37,6 +37,8 @@ module.exports = (app) => {
   app.get('/api/habitaciones/:id', habitacionController.retrieve);
   app.put('/api/habitaciones/update/:id', habitacionController.update);
   app.delete('/api/habitaciones/delete/:id', habitacionController.delete);
+  app.get('/api/habitaciones/disponibles/:date', habitacionController.available);
+
 
 
 // Routes for reservas

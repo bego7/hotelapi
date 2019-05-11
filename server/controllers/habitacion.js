@@ -1,5 +1,5 @@
 // const habitacion = require('../models').habitacion;
-const { habitacion, tipo,reserva } = require('../models');
+const { habitacion, tipo,reserva, reserva_habitacion } = require('../models');
 
 module.exports = {
   create(req, res) {
@@ -78,28 +78,80 @@ module.exports = {
   },
 
   delete(req, res) {
-        return habitacion
-        .findByPk(req.params.id)
-        .then((habitacion) => {
-            if(!habitacion) {
-                return res.status(404).json({
-                    message: 'habitacion not found'
-                });
-            }
-            return habitacion
-            .destroy()
-            .then(() => {
-                res.status(204).send();
-            })
-            .catch((error) => {
-                res.status(400).send(error);
-            });
-        }).catch((error) => {
-            res.status(400).send(error);
-        });
+  return habitacion
+  .findByPk(req.params.id)
+  .then((habitacion) => {
+    if(!habitacion) {
+      return res.status(404).json({
+          message: 'habitacion not found'
+      });
     }
+    return habitacion
+    .destroy()
+    .then(() => {
+        res.status(204).send();
+    })
+    .catch((error) => {
+        res.status(400).send(error);
+    });
+  }).catch((error) => {
+      res.status(400).send(error);
+  });
+  },
 
-      
-
+  available(req, res) {
+    return reserva.findAll(({
+      // reservaciones que ocurren dentro de la fecha consultada
+      include: [
+        {
+          model: habitacion,
+          as: 'habitacion_id'
+        }
+      ],
+      where: {
+        fecha_ingreso: {
+          [Op.lte]: req.params.date
+        },
+        fecha_salida: {
+          [Op.gte]: req.params.date
+        }
+      }
+    }).then((reservas) => {
+      // si no hay reservas en esa fecha, devolver todas las habitaciones
+      if (!reservas) {
+        return habitacion.findAll({
+          include: [
+            {
+              model: tipo,
+              as: 'idTipo',
+              required: false,
+            },
+          ],
+        })
+        .then(habitacion => res.status(200).send(habitacion))
+        .catch(error => res.status(400).send(error));
+      }
+      else {
+        // devolver las habitaciones que NO estan reservadas para esa fecha
+        return habitacion.findAll({
+          include: [
+            {
+              model: tipo,
+              as: 'idTipo',
+              required: false,
+            },
+          ],
+          where: {
+            habitacion_id: {
+              [Op.notIn]: reservas.habitacion_id
+            }
+          }
+        })
+        .then(habitacion => res.status(200).send(habitacion))
+        .catch(error => res.status(400).send(error));
+      }
+    })
+    .catch(error => res.status(400).send(error)))
+  }
 };
 
