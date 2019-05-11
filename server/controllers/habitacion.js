@@ -117,6 +117,7 @@ module.exports = {
         }
       }
     }).then((reservas) => {
+      // "reservas" contiene las reservas que ocurren en la fecha req.params.date
       // si no hay reservas en esa fecha, devolver todas las habitaciones
       if (!reservas) {
         return habitacion.findAll({
@@ -143,6 +144,7 @@ module.exports = {
           ],
           where: {
             habitacion_id: {
+              //revisar si "reservas.habitacion_id" es un arreglo con los "habitacion_id" de "reservas" 
               [Op.notIn]: reservas.habitacion_id
             }
           }
