@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
 
-      // habitacion.hasMany(models.reserva,{
-      //   foreignKey: 'tipo_id',
-      //   as:'habitacion',
-      //   onDelete: 'CASCADE',
-      //   hooks: true
-      // });
-      habitacion.belongsToMany(models.reserva, {
-        through: 'reservahabitacion'
+      habitacion.hasMany(models.reserva,{
+        foreignKey: 'habitacion_id',
+        as:'reserva',
+        onDelete: 'CASCADE',
+        hooks: true
       });
+      // habitacion.belongsToMany(models.reserva, {
+      //   through: 'reservahabitacion'
+      // });
   };
   return habitacion;
 };

@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     cantidad_personas: DataTypes.INTEGER,
     codigo_reserva: DataTypes.STRING
   }, {});
-  const reservahabitacion = sequelize.define('reservahabitacion');
+  // const reservahabitacion = sequelize.define('reservahabitacion');
   reserva.associate = function(models) {
     reserva.belongsTo(models.cliente,{
       foreignKey: 'cliente_id',
@@ -21,10 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
 
-    reserva.belongsToMany(models.habitacion, {
-      through: 'reservahabitacion',
+    reserva.belongsTo(models.habitacion,{
+      foreignKey: 'habitacion_id',
+      as:'idHabitacion',
+      onDelete: 'CASCADE',
     });
-    sequelize.sync()
+
+    // reserva.belongsToMany(models.habitacion, {
+    //   through: 'reservahabitacion',
+    // });
+    // sequelize.sync()
   };
   return reserva;
 };

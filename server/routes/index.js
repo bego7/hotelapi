@@ -47,7 +47,10 @@ module.exports = (app) => {
   app.get('/api/reservas/actuales', reservaController.actuales);
   app.get('/api/reservas/habitacions', reservaController.obtenerHabitaciones);
   app.get('/api/reservas/clientes', reservaController.obtenercliente);
-  
+
+  app.delete('/api/reservas/delete/:id', reservaController.delete);
+  // app.get('/api/reservas/:id', reservaController.retrieve);
+  // app.put('/api/reservas/update/:id', reservaController.update);
 
   
 // Routes for admins

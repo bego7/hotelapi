@@ -38,7 +38,9 @@ module.exports = {
             required: false,
           },
           {
-            model: habitacion
+            model: habitacion,
+            as:'idHabitacion',
+            required:false,
             
           }
          
@@ -86,7 +88,9 @@ module.exports = {
             required: false,
           },
           {
-            model: habitacion
+            model: habitacion,
+            as:'idHabitacion',
+            required:false,
             
           },
         ],
@@ -124,6 +128,12 @@ reserva.findAll({
       model: cliente,
       as: 'idCliente',
       required: false,
+    },
+    {
+      model: habitacion,
+      as:'idHabitacion',
+      required:false,
+      
     },
   ],
   where:{
@@ -180,6 +190,28 @@ obtenercliente(req,res){
   })
   .catch( error => res.status(400).send({ message: 'Request error.' }));
  
+},
+
+delete(req, res) {
+  return reserva
+  .findByPk(req.params.id)
+  .then((reserva) => {
+    if(!reserva) {
+      return res.status(404).json({
+        message: 'reserva not found'
+      });
+    }
+    return reserva
+    .destroy()
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+  }).catch((error) => {
+    res.status(400).send(error);
+  });
 }
 
 

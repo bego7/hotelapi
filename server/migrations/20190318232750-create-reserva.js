@@ -30,6 +30,14 @@ module.exports = {
           as: 'idPago'
         }
       },
+      habitacion_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'habitacions',
+          key: 'id',
+          as: 'idHabitacion'
+        }
+      },
       cantidad_personas: {
         type: Sequelize.INTEGER
       },

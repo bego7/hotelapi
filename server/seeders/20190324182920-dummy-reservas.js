@@ -20,6 +20,7 @@ module.exports = {
     codigo_reserva:"GZ567898",
     cliente_id:1,
     pago_id:1,
+    habitacion_id:1,
     createdAt: new Date(),
     updatedAt: new Date()
   }, 
@@ -30,6 +31,7 @@ module.exports = {
     codigo_reserva:"GZ567898",
     cliente_id:1,
     pago_id:1,
+    habitacion_id:2,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -40,15 +42,17 @@ module.exports = {
     codigo_reserva:"GZ567899",
     cliente_id:2,
     pago_id:2,
+    habitacion_id:1,
     createdAt: new Date(),
     updatedAt: new Date()
     
   },{
-    fecha_ingreso:"2019-06-18",
-    fecha_salida:"2019-06-21",
+    fecha_ingreso:"2019-05-11",
+    fecha_salida:"2019-05-13",
     cantidad_personas:8,
     codigo_reserva:"",
     cliente_id:2,
+    habitacion_id:1,
     createdAt: new Date(),
     updatedAt: new Date()
   }], {});
