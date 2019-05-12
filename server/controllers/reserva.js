@@ -6,7 +6,7 @@ const Op = Sequelize.Op;
 // moment().format('YYYY MM DD');
 
  var today =new Date();
-
+ 
 module.exports = {
   create(req, res) {
     return reserva
@@ -23,7 +23,7 @@ module.exports = {
   },
 
   list(req, res) {
-
+   
     return reserva
       .findAll({
         include: [
@@ -38,15 +38,31 @@ module.exports = {
             required: false,
           },
           {
-            model:habitacion
+            model: habitacion
+            
           }
+         
         ],
       })
       .then(reserva => res.status(200).send(reserva))
       .catch(error => res.status(400).send(error));
   },
 
-    
+  obtenerHabitaciones(req,res){
+        return reserva.findAll({
+          include: [
+            {
+              model: habitacion,
+              
+            }],
+            
+
+        })
+        .then(reserva => res.status(200).send(reserva))
+        .catch(error => res.status(400).send(error));
+        
+
+  },
 
   disponibles2(req, res) {
     // check that params are not null, undefined or empty string
@@ -68,6 +84,10 @@ module.exports = {
             model: cliente,
             as: 'idCliente',
             required: false,
+          },
+          {
+            model: habitacion
+            
           },
         ],
       where:{
@@ -127,9 +147,51 @@ reserva.findAll({
 })
 .catch( error => res.status(400).send({ message: 'Request error.' }));
 
+},
+
+obtenercliente(req,res){
+  reserva.findAll({
+    include: [
+      {
+        model: pago,
+        as: 'idPago',
+        required: false,
+      },
+      {
+        model: cliente,
+        as: 'idCliente',
+        required: false,
+      },
+    ],
+    where:{
+      fecha_ingreso:{
+        [Op.eq]:today}
+      }
+  })
+  .then(reserva => {
+    if(!reserva){
+      return res.status(400).send({ message: 'No se encontró reserva para esa fecha'});
+  }
+
+  else{
+    return  res.status(200).send(reserva);
+  }  
+  
+  })
+  .catch( error => res.status(400).send({ message: 'Request error.' }));
+ 
 }
 
 
 
 
+
+
+
 };
+
+// reserva.findByPk(1).then(reserva=>{
+//   reserva.sethabitacions([1,2]).then(sc=>{
+//       console.log(sc);
+//   });
+// });

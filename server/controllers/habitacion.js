@@ -97,8 +97,64 @@ module.exports = {
         }).catch((error) => {
             res.status(400).send(error);
         });
-    }
+    },
 
+    available(req, res) {
+      return reserva.findAll(({
+        // reservaciones que ocurren dentro de la fecha consultada
+        include: [
+          {
+            model: habitacion,
+            as: 'habitacion_id'
+          }
+        ],
+        where: {
+          fecha_ingreso: {
+            [Op.lte]: req.params.date
+          },
+          fecha_salida: {
+            [Op.gte]: req.params.date
+          }
+        }
+      }).then((reservas) => {
+        // "reservas" contiene las reservas que ocurren en la fecha req.params.date
+        // si no hay reservas en esa fecha, devolver todas las habitaciones
+        if (!reservas) {
+          return habitacion.findAll({
+            include: [
+              {
+                model: tipo,
+                as: 'idTipo',
+                required: false,
+              },
+            ],
+          })
+          .then(habitacion => res.status(200).send(habitacion))
+          .catch(error => res.status(400).send(error));
+        }
+        else {
+          // devolver las habitaciones que NO estan reservadas para esa fecha
+          return habitacion.findAll({
+            include: [
+              {
+                model: tipo,
+                as: 'idTipo',
+                required: false,
+              },
+            ],
+            where: {
+              habitacion_id: {
+                //revisar si "reservas.habitacion_id" es un arreglo con los "habitacion_id" de "reservas" 
+                [Op.notIn]: reservas.habitacion_id
+              }
+            }
+          })
+          .then(habitacion => res.status(200).send(habitacion))
+          .catch(error => res.status(400).send(error));
+        }
+      })
+      .catch(error => res.status(400).send(error)))
+    }
       
 
 };

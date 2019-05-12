@@ -1,3 +1,4 @@
+const sequelize = require('sequelize')
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const reserva = sequelize.define('reserva', {
@@ -6,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     cantidad_personas: DataTypes.INTEGER,
     codigo_reserva: DataTypes.STRING
   }, {});
+  const reservahabitacion = sequelize.define('reservahabitacion');
   reserva.associate = function(models) {
     reserva.belongsTo(models.cliente,{
       foreignKey: 'cliente_id',
@@ -20,9 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     reserva.belongsToMany(models.habitacion, {
-      as: 'reserva_id',
-      through: models.reserva_habitacion,
+      through: 'reservahabitacion',
     });
+    sequelize.sync()
   };
   return reserva;
 };
+
