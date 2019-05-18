@@ -1,4 +1,4 @@
-const { reserva, pago,cliente,habitacion } = require('../models');
+const { reserva, pago,cliente,habitacion, tipo } = require('../models');
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
 
@@ -95,10 +95,13 @@ module.exports = {
           },
         ],
       where:{
-      fecha_ingreso:{
-        [Op.notBetween]:[fecha_ingreso,fecha_salida]}
-      }
-     
+        fecha_ingreso:{
+          [Op.notBetween]:[fecha_ingreso,fecha_salida]
+        },
+        fecha_salida:{
+          [Op.notBetween]:[fecha_ingreso,fecha_salida]
+        }
+      }   
     })
     .then(reserva => {
         if(!reserva){
@@ -114,6 +117,65 @@ module.exports = {
        
     })
     .catch( error => res.status(400).send({ message: 'Request error.' }));
+},
+
+disponibles3(req, res) {
+  // check that params are not null, undefined or empty string
+  if(!req.body.fecha_ingreso || !req.body.fecha_salida){ 
+      return res.status(400).send({message: 'Falta fecha de entrada y fecha de salida'});
+  }
+  
+  let fecha_ingreso = req.body.fecha_ingreso;
+  let fecha_salida = req.body.fecha_salida;
+
+  reserva.findAll({
+    include: [
+        {
+          model: habitacion,
+          as:'idHabitacion',
+          required:false,
+          
+        },
+      ],
+    where:{
+      fecha_ingreso:{
+        [Op.between]:[fecha_ingreso,fecha_salida]
+      },
+      fecha_salida:{
+        [Op.between]:[fecha_ingreso,fecha_salida]
+      }
+    }   
+  })
+  .then(reserva => {
+      if(!reserva){
+        return habitacion.findAll({
+          include: [
+            {
+              model: tipo,
+              as: 'idTipo',
+              required: false,
+            },
+          ],
+        })
+        .then(habitacion => res.status(200).send(habitacion))
+        .catch(error => res.status(400).send(error));
+      }
+      else{
+        return habitacion.findAll({
+          include: [
+            {
+              model: tipo,
+              as: 'idTipo',
+              required: false,
+            },
+          ],
+        })
+        .then(habitacion => res.status(200).send(habitacion))
+        .catch(error => res.status(400).send(error));
+      }
+     
+  })
+  .catch(error => res.status(400).send({ message: 'Request error.' }));
 },
 
 actuales(req,res){

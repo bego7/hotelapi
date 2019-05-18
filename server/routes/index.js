@@ -43,7 +43,8 @@ module.exports = (app) => {
 // Routes for reservas
   app.post('/api/reservas', reservaController.create);
   app.get('/api/reservas', reservaController.list);
-  app.post('/api/reservas/disponibles2', reservaController.disponibles2);
+  app.get('/api/reservas/disponibles2', reservaController.disponibles2);
+  app.get('/api/reservas/disponibles3', reservaController.disponibles3);
   app.get('/api/reservas/actuales', reservaController.actuales);
   app.get('/api/reservas/habitacions', reservaController.obtenerHabitaciones);
   app.get('/api/reservas/clientes', reservaController.obtenercliente);
